@@ -192,7 +192,6 @@
     };
     this._v = 1;
 
-    /*
     (function (f) {
       (function randomMove() {
         f._rstep = parseInt((Math.random() - 0.5) * 5);
@@ -201,7 +200,6 @@
         setTimeout(randomMove, Math.random() * 4000);
       })();
     })(this);
-    */
   }
   Follower.prototype = Object.create(Role.prototype, {
     angle: {
@@ -310,7 +308,7 @@
 
     // game definition
     var hero = new Role(20, 20);
-    var target = new Role(200, 200);
+    var target = new Role(100, 200);
     target.color = 'rgb(200,0,153)';
     target.update = function (game) {
       Role.prototype.update.call(this, game);
@@ -324,13 +322,13 @@
       return d < 400 ? ':-)' : false;
     };
     var map = new BlkMap(width, height, 60, 40, {
-      'r(150,150,10,100)': true,
-      'r(150,250,100,10)': true,
-      'r(150,150,100,10)': true,
-      'r(250,150,10,110)': true
+      'r(180,180,10,300)': true,
+      'r(180,280,300,10)': true,
+      'r(0,120,300,10)': true,
+      'r(280,180,10,110)': true,
+      'r(350,120,300,10)': true,
     });
     var followers = [];
-    /*
     followers.push(new Follower(100, 100));
     followers.push(new Follower(100, 200));
     followers.push(new Follower(200, 100));
@@ -340,9 +338,8 @@
     followers.push(new Follower(400, 300));
     followers.push(new Follower(400, 200));
     followers.push(new Follower(500, 300));
-    */
     followers.push(new Follower(200, 200));
-    //followers.push(target);
+    followers.push(target);
 
     window.lineTest = function (x1,y1,x2,y2) {
       return map.lineTest(x1,y1,x2,y2);
@@ -426,16 +423,16 @@
       doGaming(canvas, function (result) {
         var m = null;
         if (result == 'failure') {
-          m = '下一步想做什么？';
+          m = 'Next step?';
         } else {
-          m = '开心吧？';
+          m = 'Win!';
         }
         window.message.text('Information', m)
-              .yes('重新开始?', function () {
+              .yes('Replay', function () {
                 slides.prevSlide();
                 window.message.hide();
               })
-              .no('下一站...', function () {
+              .no('Next...', function () {
                 slides.nextSlide();
                 window.message.hide();
               }).show();
