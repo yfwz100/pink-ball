@@ -186,11 +186,11 @@
     this._step = 0;
     this._xstep = this._ystep = 0;
     this._rstep = 1;
-    this.color = 'rgb(22, 22, 22)';
+    this.color = 'rgb(212, 212, 212)';
     this._g = {
       dx1: 0, dy1: 0, dx2: 0, dy2: 0
     };
-    this._v = 1;
+    this._v = 1.5;
 
     (function (f) {
       (function randomMove() {
@@ -237,6 +237,12 @@
           this.y += this._ystep;
         }
 
+        var target = game.target;
+        var d = Math.pow(target.x-this.x, 2)+Math.pow(target.y-this.y, 2);
+        if (d < 400) {
+          return ':-(';
+        }
+
         var map = game.map;
 
         var dx1 = DIST*Math.cos((this.angle-15)*deg);
@@ -278,7 +284,7 @@
     draw: {
       value: function (ctx) {
         ctx.save();
-        ctx.fillStyle = 'rgba(22,22,22,0.1)';
+        ctx.fillStyle = 'rgba(212,212,212,0.1)';
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this._g.dx1, this._g.dy1);
@@ -330,7 +336,6 @@
     });
     var followers = [];
     followers.push(new Follower(100, 100));
-    followers.push(new Follower(100, 200));
     followers.push(new Follower(200, 100));
     followers.push(new Follower(300, 300));
     followers.push(new Follower(300, 100));
@@ -341,16 +346,13 @@
     followers.push(new Follower(200, 200));
     followers.push(target);
 
-    window.lineTest = function (x1,y1,x2,y2) {
-      return map.lineTest(x1,y1,x2,y2);
-    };
-
     // game context.
     var game = {
       hero: hero,
       map: map,
       target: target,
-      followers: followers
+      followers: followers,
+      viewport: {x: 0, y:0}
     };
     var gameover = false;
 
@@ -400,7 +402,8 @@
 
       // draw ----------------------------------------
       ctx.save();
-      ctx.fillStyle = '#fefefe';
+
+      ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
 
       hero.draw(ctx);
@@ -410,7 +413,19 @@
       map.draw(ctx);
 
       ctx.restore();
-      canvas.getContext('2d').drawImage(buffer, 0, 0);
+
+      var viewport = game.viewport;
+      if (hero.x + viewport.x > canvas.width-20) {
+        viewport.x -= 2;
+      } else if (hero.x + viewport.x < 20) {
+        viewport.x += 2;
+      }
+
+      var context = canvas.getContext('2d');
+      context.clearRect(0, 0, width, height);
+      context.drawImage(buffer, game.viewport.x, game.viewport.y);
+
+      // loop ----------------------------------------
       canvas.loop = setTimeout(loop, 1000/30);
     })();
   }
@@ -438,6 +453,10 @@
               }).show();
       });
     };
+    canvasSlide.onslideleave = function () {
+      clearTimeout(canvas.loop);
+      window.message.hide();
+    };
 
     var keymap = {
       37: 'left',
@@ -463,3 +482,4 @@
   })(window.onload) : onLoad;
 
 }).call(this);
+
