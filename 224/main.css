@@ -93,38 +93,47 @@ body {
   -ms-transition: 1s;
 
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #acacac;
-  box-shadow: 0 0 20px #ccc;
+  box-shadow: 0 0 20px #888;
 }
 #message-box .title {
-  background-color: #acacac;
+  background-color: #333;
   color: #fff;
-  border-radius: 10px 10px 0 0;
-  height: 30px;
-  line-height: 30px;
+  font-family: "Comic Sans MS", sans, sans-serif;
+  height: 40px;
+  line-height: 40px;
+  font-size: 30px;
   text-align: center;
 }
 #message-box .body {
   margin: 10px;
+  line-height: 40px;
 }
 #message-box .act-bar {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 30px;
+  height: 36px;
   line-height: 30px;
   padding: 0;
-  background-color: #acacac;
+  background-color: #888;
 }
 #message-box .act-bar .y-btn,
 #message-box .act-bar .n-btn {
   display: inline-block;
-  width: 50%;
+  width: 48%;
   text-align: center;
   cursor: pointer;
+  margin: 3px 1%;
+  border-radius: 10px;
+  transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  color: white;
 }
+
 #message-box .act-bar a:hover {
-  background-color: #ccc;
+  background-color: #555;
 }
