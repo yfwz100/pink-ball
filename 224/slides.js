@@ -31,6 +31,9 @@
       if (i < (slides.length - 1)) {
         var old = parseInt(container.style.marginTop);
         container.style.marginTop = old - height + 'px';
+        if (slides[i].onslideleave) {
+          slides[i].onslideleave();
+        }
         i ++;
         if (slides[i].onslide) {
           slides[i].onslide();
@@ -42,6 +45,9 @@
       if (i > 0) {
         var old = parseInt(container.style.marginTop);
         container.style.marginTop = old + height + 'px';
+        if (slides[i].onslideleave) {
+          slides[i].onslideleave();
+        }
         i --;
         if (slides[i].onslide) {
           slides[i].onslide();
