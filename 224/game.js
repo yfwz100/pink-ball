@@ -284,7 +284,7 @@
     draw: {
       value: function (ctx) {
         ctx.save();
-        ctx.fillStyle = 'rgba(212,212,212,0.1)';
+        ctx.fillStyle = 'rgba(212,212,212,0.3)';
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this._g.dx1, this._g.dy1);
@@ -309,12 +309,12 @@
 
     var buffer = doc.createElement('canvas');
     buffer.width = width;
-    buffer.height = height;
+    buffer.height = height*3;
     var ctx = buffer.getContext('2d');
-
+    
     // game definition
     var hero = new Role(20, 20);
-    var target = new Role(100, 200);
+    var target = new Role(500, 1000);
     target.color = 'rgb(200,0,153)';
     target.update = function (game) {
       Role.prototype.update.call(this, game);
@@ -327,12 +327,43 @@
       }
       return d < 400 ? ':-)' : false;
     };
-    var map = new BlkMap(width, height, 60, 40, {
-      'r(180,180,10,300)': true,
+    var map = new BlkMap(buffer.width, buffer.height, buffer.width/10, buffer.height/10, {
+      'r(180,180,10,280)': true,
       'r(180,280,300,10)': true,
-      'r(0,120,300,10)': true,
-      'r(280,180,10,110)': true,
+      'r(0,120,300,10)':   true,
+      'r(280,180,10,100)': true,
       'r(350,120,300,10)': true,
+
+      'r(100,450,400,10)': true,
+      'r(100,450,10,200)': true,
+      'r(500,450,10,200)': true,
+      'r(200,550,10,300)': true,
+      'r(400,550,10,300)': true,
+      'r(0,700,200,10)':   true,
+      'r(400,700,200,10)': true,
+
+      // yuan
+      'r(20,1050,180,10)': true,
+      'r(10,1100,200,10)': true,
+      'r(80,1100,10,60)':  true,
+      'b(70,1160)': true,
+      'b(60,1170)': true,
+      'r(30,1180,30,10)': true,
+      'r(110,1100,10,80)': true,
+      'r(110,1180,100,10)': true,
+      // xiao
+      'b(320,1050)': true,
+      'r(250,1060,160,10)': true,
+      'b(250,1070)': true,
+      'b(400,1070)': true,
+      'b(290,1080)': true,
+      'b(320,1080)': true,
+      'b(360,1080)': true,
+      'r(280,1100,10,90)': true,
+      'r(370,1100,10,90)': true,
+      'r(280,1090,100,10)': true,
+      'r(280,1120,100,10)': true,
+      'r(280,1150,100,10)': true
     });
     var followers = [];
     followers.push(new Follower(100, 100));
@@ -344,6 +375,14 @@
     followers.push(new Follower(400, 200));
     followers.push(new Follower(500, 300));
     followers.push(new Follower(200, 200));
+    followers.push(new Follower(230, 700));
+    followers.push(new Follower(360, 700));
+    followers.push(new Follower(300, 600));
+    followers.push(new Follower(530, 500));
+    followers.push(new Follower(100, 900));
+    followers.push(new Follower(500, 900));
+    followers.push(new Follower(300, 900));
+    followers.push(new Follower(520, 800));
     followers.push(target);
 
     // game context.
@@ -395,7 +434,7 @@
               break;
           }
           clearTimeout(canvas.loop);
-          canvas.getContext('2d').drawImage(buffer, 0, 0);
+          canvas.getContext('2d').drawImage(buffer, game.viewport.x, game.viewport.y);
           return;
         }
       }
@@ -403,8 +442,8 @@
       // draw ----------------------------------------
       ctx.save();
 
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#222222';
+      ctx.fillRect(0, 0, buffer.width, buffer.height);
 
       hero.draw(ctx);
       for (var i=0; i<followers.length; i++) {
@@ -415,10 +454,15 @@
       ctx.restore();
 
       var viewport = game.viewport;
-      if (hero.x + viewport.x > canvas.width-20) {
+      if (hero.x + viewport.x > width-20) {
         viewport.x -= 2;
       } else if (hero.x + viewport.x < 20) {
         viewport.x += 2;
+      }
+      if (hero.y + viewport.y > height-20) {
+        viewport.y -= 2;
+      } else if (hero.y + viewport.y < 20) {
+        viewport.y += 2;
       }
 
       var context = canvas.getContext('2d');
@@ -440,7 +484,7 @@
         if (result == 'failure') {
           m = 'Next step?';
         } else {
-          m = 'Win!';
+          m = 'Congratulation!';
         }
         window.message.text('Information', m)
               .yes('Replay', function () {
