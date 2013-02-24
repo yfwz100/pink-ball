@@ -313,7 +313,7 @@
     var ctx = buffer.getContext('2d');
     
     // game definition
-    var hero = new Role(20, 20);
+    var hero = new Role(60, 60);
     var target = new Role(500, 1000);
     target.color = 'rgb(200,0,153)';
     target.update = function (game) {
@@ -454,14 +454,14 @@
       ctx.restore();
 
       var viewport = game.viewport;
-      if (hero.x + viewport.x > width-20) {
+      if (hero.x + viewport.x > width-60) {
         viewport.x -= 2;
-      } else if (hero.x + viewport.x < 20) {
+      } else if (hero.x + viewport.x < 60) {
         viewport.x += 2;
       }
-      if (hero.y + viewport.y > height-20) {
+      if (hero.y + viewport.y > height-60) {
         viewport.y -= 2;
-      } else if (hero.y + viewport.y < 20) {
+      } else if (hero.y + viewport.y < 60) {
         viewport.y += 2;
       }
 
