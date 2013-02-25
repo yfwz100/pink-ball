@@ -17,8 +17,8 @@ body {
 .container {
   margin: 0;
   padding: 0;
-  width: 600px;
-  height: 400px;
+  width: 610px;
+  height: 410px;
   position: relative;
   overflow: hidden;
   background-color: #fff;

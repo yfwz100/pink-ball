@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+
+  "name": "Hidding game",
+  "description": "A HTML 5 hidding game ,don't touch the white guy and find you girl friend ",
+  "version": "0.1.0",
+  
+
+  "browser_action": {
+	"default_popup":"index.html"
+  }
+  
+}
