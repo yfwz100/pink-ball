@@ -54,18 +54,21 @@
         }
       }
     };
-    
-    window.addEventListener('keyup', function (event) {
-      var key = event.keyCode;
-      switch (event.keyCode) {
-        case 33:
-          elem.prevSlide();
-          break;
-        case 34:
-          elem.nextSlide();
-          break;
-      }
-    });
+
+    if (elem.dataset.selectable) {
+      window.addEventListener('keyup', function (event) {
+        if (! elem.dataset.selected) return;
+        var key = event.keyCode;
+        switch (event.keyCode) {
+          case 33:
+            elem.prevSlide();
+            break;
+          case 34:
+            elem.nextSlide();
+            break;
+        }
+      });
+    }
 
     elem.addEventListener('click', function (event) {
       switch (event.target.dataset['slide']) {
