@@ -57,7 +57,10 @@
 
     if (elem.dataset.selectable) {
       window.addEventListener('keyup', function (event) {
-        if (! elem.dataset.selected) return;
+        if (elem.dataset && 
+            (elem.dataset.selected == "false" || !elem.dataset.selected)) {
+          return;
+        }
         var key = event.keyCode;
         switch (event.keyCode) {
           case 33:
