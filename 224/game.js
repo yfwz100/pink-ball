@@ -4,14 +4,6 @@
 
   var doc = document;
 
-  var keypress = {
-    up: false,
-    down: false,
-    left: false,
-    right: false,
-    space: false,
-  };
-
   function BlkMap(w, h, cols, rows, bits) {
     this.w = w;
     this.h = h;
@@ -399,16 +391,16 @@
     (function loop() {
       // event ---------------------------------------
       var dir = {x:0, y:0};
-      if (keypress.left) {
+      if (key.left) {
         dir.x = -1;
       }
-      if (keypress.right) {
+      if (key.right) {
         dir.x = 1;
       }
-      if (keypress.up) {
+      if (key.up) {
         dir.y = -1;
       }
-      if (keypress.down) {
+      if (key.down) {
         dir.y = 1;
       }
       hero.move(dir);
@@ -501,21 +493,6 @@
       clearTimeout(canvas.loop);
       window.message.hide();
     };
-
-    var keymap = {
-      37: 'left',
-      38: 'up',
-      39: 'right',
-      40: 'down',
-      32: 'space'
-    };
-
-    window.addEventListener('keydown', function (event) {
-      keypress[keymap[event.keyCode]] = true;
-    });
-    window.addEventListener('keyup', function (event) {
-      keypress[keymap[event.keyCode]] = false;
-    });
   };
 
   window.onload = window.onload ? (function (func) {

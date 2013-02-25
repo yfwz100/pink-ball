@@ -54,6 +54,7 @@ body {
   width: 600px;
   margin: auto;
   overflow: auto;
+  clip: rect(0px 0px 600px 400px);
 }
 
 #canvas-slide canvas {
