@@ -292,6 +292,8 @@
   });
 
   function doGaming(canvas, callback) {
+    key.up = key.down = key.left = key.right = false;
+
     if (! canvas) {
       if (console.error) console.error('Canvas has not been defined yet.');
       return;

@@ -36,12 +36,17 @@
     <div id="slides" data-selected="true">
       <div class="slide">
         <h1>Where is the <span class="pink">Pink</span> ball</h1>
-        <p>Clone~</p>
-        <button id="start-btn" class="btn">Start</button>
+        <p>A test to support touch feature in this game.</p>
+        <button id="play-btn" class="btn">Play</button>
       </div>
       <canvas class="slide" id="canvas">
-        No support for HTML 5.
+        Sorry, no support for HTML 5 in your browser. Maybe you should try Google chrome or Firefox.
       </canvas>
+      <div class="slide">
+        <h1>Congratulation</h1>
+        <p>Thanks to play the game.</p>
+        <button id="replay-btn" class="btn">Replay</button>
+      </diV>
     </div>
     <script type="text/javascript">
       (function (globals) {
@@ -59,14 +64,26 @@
 
         canvas.onslide = function () {
           doGaming(canvas, function (result) {
-            alert('hELLO');
+            if (result == 'failure') {
+              alert('Failed.');
+              slides.prevSlide();
+            } else {
+              alert('Success.');
+              slides.nextSlide();
+            }
           });
         };
 
-        var startBtn = document.getElementById('start-btn');
-        startBtn.addEventListener('click', function (event) {
+        var playBtn = document.getElementById('play-btn');
+        playBtn.addEventListener('click', function (event) {
           event.preventDefault();
           slides.nextSlide();
+        });
+
+        var replayBtn = document.getElementById('replay-btn');
+        replayBtn.addEventListener('click', function (event) {
+          event.preventDefault();
+          slides.prevSlide();
         });
 
         enableTouchPad(canvas);
