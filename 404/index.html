@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Test App</title>
+    <meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;" />
+    <script src="vendor/jquery.js"></script>
+    <script src="v-slides.js"></script>
+    <script src="key.js"></script>
+    <script src="game.js"></script>
+    <style type="text/css">
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        position: relative;
+      }
+      canvas {
+      }
+      .pink {
+        color: pink;
+      }
+
+      #start-btn {
+        display: block;
+        margin: auto;
+        width: 90%;
+        height: 50px;
+      }
+      #start-btn:active {
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slides" data-selected="true">
+      <div class="slide">
+        <h1>Where is the <span class="pink">Pink</span> ball</h1>
+        <p>Clone~</p>
+        <button id="start-btn" class="btn">Start</button>
+      </div>
+      <canvas class="slide" id="canvas">
+        No support for HTML 5.
+      </canvas>
+    </div>
+    <script type="text/javascript">
+      (function (globals) {
+        "use strict"
+
+        var slides = document.getElementById('slides');
+        doSlides(slides, {
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+
+        var canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        canvas.onslide = function () {
+          doGaming(canvas, function (result) {
+            alert('hELLO');
+          });
+        };
+
+        var startBtn = document.getElementById('start-btn');
+        startBtn.addEventListener('click', function (event) {
+          event.preventDefault();
+          slides.nextSlide();
+        });
+
+        enableTouchPad(canvas);
+
+      })(window)
+    </script>
+  </body>
+</html>
