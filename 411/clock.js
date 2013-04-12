@@ -80,9 +80,9 @@
       ctx.translate(width/2, height/2);
       ctx.lineWidth = 2;
       ctx.strokeStyle = 'rgb(0,200,255)';
-      var grd = ctx.createLinearGradient(0, 0, 0, height/2);
-      grd.addColorStop(0, '#efefef');
-      grd.addColorStop(1, 'white');
+      var grd = ctx.createLinearGradient(0, 0, 0, height);
+      grd.addColorStop(0, 'white');
+      grd.addColorStop(1, '#efefef');
       ctx.fillStyle = grd;
       ctx.shadowBlur = 2;
       ctx.shadowColor = '#ccc';
