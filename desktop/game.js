@@ -1,4 +1,3 @@
-
 (function () {
   "use strict"
 
@@ -503,4 +502,3 @@
   })(window.onload) : onLoad;
 
 }).call(this);
-
